@@ -1,0 +1,60 @@
+{
+    "name": "texhub/oson-sms",
+    "description": "OsonSMS gateway SDK for any PHP framework with first-class Laravel support: send SMS, bulk messaging, delivery responses and optional SHA-256 request signing.",
+    "type": "library",
+    "keywords": ["php", "laravel", "sms", "oson", "osonsms", "sms-gateway", "tajikistan", "texhub"],
+    "homepage": "https://texhub.pro",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mahmudi Shodmehr",
+            "email": "info@texhub.pro",
+            "homepage": "https://texhub.pro",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://texhub.pro"
+    },
+    "require": {
+        "php": "^8.2",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-hash": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0 || ^12.0",
+        "illuminate/support": "^11.0 || ^12.0 || ^13.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "TexHub\\OsonSms\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TexHub\\OsonSms\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TexHub\\OsonSms\\Laravel\\OsonSmsServiceProvider"
+            ],
+            "aliases": {
+                "OsonSms": "TexHub\\OsonSms\\Laravel\\OsonSms"
+            }
+        }
+    },
+    "suggest": {
+        "illuminate/support": "Required to use the package inside a Laravel application (service provider, facade, config publishing)."
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
