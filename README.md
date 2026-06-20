@@ -1,6 +1,6 @@
 # TexHub · OsonSMS
 
-**🌐 English** · [Русский](README.ru.md)
+**English** · [Русский](README.ru.md)
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![PHP](https://img.shields.io/badge/php-%5E8.2-777bb4.svg)](composer.json)
@@ -12,18 +12,18 @@ A clean, framework-agnostic PHP SDK for the **OsonSMS** gateway — send single 
 
 ---
 
-## ✨ Features
+## Features
 
-- 📲 **Send SMS** with a fluent message builder or a one-line shortcut
-- 📦 **Bulk send** that never throws — each result carries its own success/error
-- 🔐 **Bearer-token auth** + optional **SHA-256 `str_hash`** signing
-- 🧩 **Pluggable HTTP transport** — cURL by default; inject your own for testing
-- 🎯 **Typed responses & exceptions** (`ApiException` with code / message / error_type)
-- ✅ **Fully unit-tested**, no network needed
+- **Send SMS** with a fluent message builder or a one-line shortcut
+- **Bulk send** that never throws — each result carries its own success/error
+- **Bearer-token auth** + optional **SHA-256 `str_hash`** signing
+- **Pluggable HTTP transport** — cURL by default; inject your own for testing
+- **Typed responses & exceptions** (`ApiException` with code / message / error_type)
+- **Fully unit-tested**, no network needed
 
 ---
 
-## 📦 Installation
+## Installation
 
 ```bash
 composer require texhub/oson-sms
@@ -33,7 +33,7 @@ Requirements: **PHP ≥ 8.2** with the `curl`, `json` and `hash` extensions.
 
 ---
 
-## 🚀 Quick start (plain PHP)
+## Quick start (plain PHP)
 
 ```php
 use TexHub\OsonSms\OsonSms;
@@ -81,17 +81,17 @@ foreach ($results as $r) {
 
 ---
 
-## 🔐 Authentication
+## Authentication
 
 By default the SDK authenticates with the **Bearer token** in the `Authorization` header (as in the OsonSMS sample), sending these parameters:
 
-| Param          | Source                       |
+| Param | Source |
 |----------------|------------------------------|
-| `from`         | sender (config or per-message) |
-| `phone_number` | recipient                    |
-| `msg`          | text                         |
-| `txn_id`       | idempotency key (auto)       |
-| `login`        | config login                 |
+| `from` | sender (config or per-message) |
+| `phone_number` | recipient |
+| `msg` | text |
+| `txn_id` | idempotency key (auto) |
+| `login` | config login |
 
 ### Optional `str_hash` signature
 
@@ -112,7 +112,7 @@ $oson = OsonSms::fromArray([
 
 ---
 
-## ⚙️ Error handling
+## Error handling
 
 ```php
 use TexHub\OsonSms\Exceptions\ApiException;
@@ -136,7 +136,7 @@ The API signals errors with a JSON body: `{ "error": { "code": ..., "msg": "..."
 
 ---
 
-## <a name="laravel"></a>🧩 Laravel
+## <a name="laravel"></a> Laravel
 
 The service provider and `OsonSms` facade are **auto-discovered**. Publish the config:
 
@@ -177,7 +177,7 @@ public function notify(\TexHub\OsonSms\OsonSms $oson) { /* ... */ }
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Inject the fake transport to test without hitting the network:
 
@@ -202,7 +202,7 @@ composer test          # or: vendor/bin/phpunit
 
 ---
 
-## 📚 Architecture
+## Architecture
 
 ```
 src/
