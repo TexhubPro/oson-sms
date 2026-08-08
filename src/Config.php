@@ -15,7 +15,9 @@ final class Config
 
     /**
      * @param string      $login      Account login (the `login` parameter).
-     * @param string      $token      Bearer token used in the Authorization header.
+     * @param string      $token      Bearer token for the Authorization header. May be
+     *                                empty when the account authenticates with a
+     *                                `str_hash` signature instead — see $hashSecret.
      * @param string      $sender     Default sender name / number (the `from` parameter).
      * @param string      $server     API endpoint URL.
      * @param string|null $hashSecret Optional API hash secret. When set, the client
@@ -34,8 +36,10 @@ final class Config
             throw new ConfigurationException('OsonSMS login must not be empty.');
         }
 
-        if (trim($this->token) === '') {
-            throw new ConfigurationException('OsonSMS token must not be empty.');
+        if (trim($this->token) === '' && $this->hashSecret === null) {
+            throw new ConfigurationException(
+                'OsonSMS needs either a Bearer token or a hash secret to sign requests.'
+            );
         }
 
         if (trim($this->sender) === '') {
@@ -73,5 +77,13 @@ final class Config
     public function usesSignature(): bool
     {
         return $this->hashSecret !== null;
+    }
+
+    /**
+     * Whether a Bearer token was supplied for the Authorization header.
+     */
+    public function usesToken(): bool
+    {
+        return trim($this->token) !== '';
     }
 }

@@ -16,7 +16,7 @@ A clean, framework-agnostic PHP SDK for the **OsonSMS** gateway — send single 
 
 - **Send SMS** with a fluent message builder or a one-line shortcut
 - **Bulk send** that never throws — each result carries its own success/error
-- **Bearer-token auth** + optional **SHA-256 `str_hash`** signing
+- **Bearer-token auth** or **SHA-256 `str_hash`** signing — whichever your account uses
 - **Pluggable HTTP transport** — cURL by default; inject your own for testing
 - **Typed responses & exceptions** (`ApiException` with code / message / error_type)
 - **Fully unit-tested**, no network needed
@@ -107,6 +107,17 @@ $oson = OsonSms::fromArray([
     'hash_secret' => 'YOUR_API_HASH',
 ]);
 ```
+
+Accounts issued only a hash secret and no Bearer token leave `token` empty — the
+SDK then signs with `str_hash` and sends no `Authorization` header:
+
+```php
+$oson = OsonSms::fromArray([
+    'login' => '...', 'sender' => '...', 'hash_secret' => 'YOUR_API_HASH',
+]);
+```
+
+At least one of `token` or `hash_secret` must be present.
 
 > If your terminal uses a different field order, compute it yourself with `new Signature($secret)` `->hash($yourString)`.
 

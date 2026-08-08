@@ -55,7 +55,9 @@ final class SmsClient
             $params['str_hash'] = $this->signature->make($txnId, $this->config->login, $sender, $phone);
         }
 
-        $headers = ['Authorization' => 'Bearer ' . $this->config->token];
+        $headers = $this->config->usesToken()
+            ? ['Authorization' => 'Bearer ' . $this->config->token]
+            : [];
 
         $raw = $this->transport->get($this->config->server, $params, $headers);
 

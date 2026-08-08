@@ -31,6 +31,22 @@ final class ConfigAndSignatureTest extends TestCase
         $this->assertFalse($config->usesSignature());
     }
 
+    public function test_config_accepts_a_hash_secret_instead_of_a_token(): void
+    {
+        $config = Config::fromArray([
+            'login' => 'l', 'token' => '', 'sender' => 's', 'hash_secret' => 'x',
+        ]);
+
+        $this->assertFalse($config->usesToken());
+        $this->assertTrue($config->usesSignature());
+    }
+
+    public function test_config_rejects_credentials_without_token_or_hash_secret(): void
+    {
+        $this->expectException(ConfigurationException::class);
+        new Config(login: 'l', token: '', sender: 's');
+    }
+
     public function test_config_detects_signature(): void
     {
         $config = Config::fromArray([

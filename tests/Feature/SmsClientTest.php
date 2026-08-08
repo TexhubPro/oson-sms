@@ -23,6 +23,19 @@ final class SmsClientTest extends TestCase
         );
     }
 
+    public function test_send_omits_the_authorization_header_when_only_a_hash_secret_is_set(): void
+    {
+        $transport = new FakeTransport();
+
+        (new OsonSms(
+            new Config(login: 'mylogin', token: '', sender: 'TexHub', hashSecret: 'secret'),
+            $transport,
+        ))->send(SmsMessage::make('992900123456', 'Hello!')->txnId('txn-1'));
+
+        $this->assertArrayNotHasKey('Authorization', $transport->lastHeaders);
+        $this->assertArrayHasKey('str_hash', $transport->lastQuery);
+    }
+
     public function test_send_builds_request_with_bearer_token_and_params(): void
     {
         $transport = new FakeTransport();
